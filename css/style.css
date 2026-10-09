@@ -13,6 +13,8 @@
   --on-plum:#ffffff;
   --font-mark:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
   --font-title:"Bricolage Grotesque","Helvetica Neue",Arial,sans-serif;
+  /* "YAMANE TAIKO" name in the header and footer */
+  --font-wordmark:"Figtree","Helvetica Neue",Arial,sans-serif;
   --font-body:"Jost","Futura","Century Gothic","Helvetica Neue",system-ui,sans-serif;
   /* HEADING SIZE: page titles (About, Members, Media, Contact) and section headings (Videos, Follow us).
      clamp(smallest on phones, scales with screen width, largest on desktop) */
@@ -39,7 +41,13 @@ p{margin:0}
 @media (min-width:761px){ .site-head .wrap{min-height:88px} .site-head .brand .logo{width:46px;height:46px} .site-head .brand .wordmark{font-size:1.13rem} }
 .brand{color:#fff;display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand .logo{width:40px;height:40px;flex:none;display:block}
-.wordmark{font-family:var(--font-mark);font-weight:800;letter-spacing:.14em;text-transform:uppercase;line-height:1}
+.wordmark .kern-ya{letter-spacing:.05em} /* pulls the A of YAMANE closer to the Y */
+.wordmark .kern-am{letter-spacing:.12em} /* A → M in YAMANE */
+.wordmark .kern-ma{letter-spacing:.12em} /* M → A in YAMANE */
+.wordmark .kern-an{letter-spacing:.12em} /* A → N in YAMANE */
+.wordmark .kern-ai{letter-spacing:.11em} /* pulls the I of TAIKO closer to the A */
+.wordmark .kern-ko{letter-spacing:.08em} /* pulls the O of TAIKO closer to the K */
+.wordmark{font-family:var(--font-wordmark);font-weight:800;letter-spacing:.14em;text-transform:uppercase;line-height:1}
 .brand .wordmark{font-size:1.02rem}
 .nav{display:flex;gap:clamp(16px,2.6vw,36px)}
 .nav a{text-decoration:none;color:#e6e2e8;padding-block:6px;border-bottom:1.5px solid transparent;transition:color .2s,border-color .2s}
