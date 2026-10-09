@@ -299,3 +299,7 @@ form.inquiry .full{grid-column:1/-1}
 [data-page="contact"] .form-note{text-align:center}
 [data-page="contact"] .follow-block .sec-head{justify-content:center}
 [data-page="contact"] .follow-links{justify-items:center}
+
+/* hidden spam trap for the contact form */
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.btn:disabled{opacity:.7;cursor:wait;transform:none}

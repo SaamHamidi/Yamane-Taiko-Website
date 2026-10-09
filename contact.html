@@ -47,12 +47,13 @@
     <p>For performance, workshop, or other inquiries, email <a class="mail-link" href="mailto:jeff.yamanetaiko@gmail.com">jeff.yamanetaiko@gmail.com</a> or fill out the form below.</p>
   </div></div>
   <div class="block"><div class="wrap">
-    <form class="inquiry" id="inquiry" novalidate>
+    <form class="inquiry" id="inquiry" action="https://formspree.io/f/maeqorad" method="POST" novalidate>
       <div class="field"><label class="caps" for="fName">Name</label><input id="fName" name="name" required autocomplete="name"></div>
       <div class="field"><label class="caps" for="fEmail">Email</label><input id="fEmail" name="email" type="email" required autocomplete="email"></div>
       <div class="field full"><label class="caps" for="fSubject">Subject</label><input id="fSubject" name="subject" required></div>
       <div class="field full"><label class="caps" for="fMsg">Message</label><textarea id="fMsg" name="message" required></textarea></div>
       <div class="full caps"><button class="btn dark" type="submit">Send message</button></div>
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true" class="hp">
       <p class="form-note" id="formNote" hidden></p>
     </form>
   </div></div>

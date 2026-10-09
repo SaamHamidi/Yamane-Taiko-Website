@@ -6,7 +6,7 @@
 const SITE = {
   email: "jeff.yamanetaiko@gmail.com",       // public contact email (shown on the Contact page)
   city: "San Diego, CA",
-  formEndpoint: "",                          // e.g. a Formspree URL; leave empty until you set one up
+  formEndpoint: "https://formspree.io/f/maeqorad", // Formspree form: messages are emailed to the account inbox
   socials: [
     { label: "Instagram", url: "https://www.instagram.com/yamane_taiko/" },
     { label: "YouTube",   url: "https://www.youtube.com/@YamaneTaiko" },

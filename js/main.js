@@ -88,15 +88,25 @@ tabs.forEach(([t]) => t.addEventListener("click", () => tabs.forEach(([x, p]) =>
 if (location.hash === "#photos") $("#tabPhoto").click();
 }
 
-/* contact */
+/* contact (Formspree, sent in the background so visitors stay on the page) */
 if ($("#inquiry")) $("#inquiry").addEventListener("submit", async e => {
-  e.preventDefault(); const f = e.target, note = $("#formNote"); note.hidden = false;
+  e.preventDefault(); const f = e.target, note = $("#formNote"), btn = f.querySelector('button[type="submit"]'); note.hidden = false;
   if (!f.checkValidity()) { note.textContent = "Please fill in your name, a valid email, a subject, and a message."; return; }
-  if (!SITE.formEndpoint) { note.textContent = SITE.email ? `This form isn't connected yet. Please email us at ${SITE.email}.` : "This form isn't connected yet. Please reach us on Instagram for now."; return; }
+  if (!SITE.formEndpoint) { note.textContent = `This form isn't connected yet. Please email us at ${SITE.email}.`; return; }
+  const data = new FormData(f);
+  data.set("_subject", `Yamane Taiko website: ${data.get("subject")}`);   // email subject line in the inbox
+  data.set("_replyto", data.get("email"));                               // "Reply" goes to the visitor
+  btn.disabled = true; const label = btn.textContent; btn.textContent = "Sending…"; note.textContent = "";
   try {
-    const r = await fetch(SITE.formEndpoint, { method: "POST", body: new FormData(f), headers: { Accept: "application/json" } });
-    if (!r.ok) throw 0; f.reset(); note.textContent = "Thanks. Your message was sent and we'll reply by email.";
-  } catch { note.textContent = SITE.email ? `Your message didn't go through. Please email us at ${SITE.email}.` : "Your message didn't go through. Please try again in a moment."; }
+    const r = await fetch(SITE.formEndpoint, { method: "POST", body: data, headers: { Accept: "application/json" } });
+    if (r.ok) { f.reset(); note.textContent = "Thanks! Your message was sent. We'll reply by email."; }
+    else {
+      const j = await r.json().catch(() => ({}));
+      const msg = (j.errors || []).map(x => x.message).filter(Boolean).join(" ");
+      note.textContent = msg ? `${msg} You can also email us at ${SITE.email}.` : `Your message didn't go through. Please email us at ${SITE.email}.`;
+    }
+  } catch { note.textContent = `Your message didn't go through. Please check your connection or email us at ${SITE.email}.`; }
+  finally { btn.disabled = false; btn.textContent = label; }
 });
 const ICONS = {
   Instagram: '<svg viewBox="0 0 24 24" width="27" height="27" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor" stroke="none"/></svg>',
