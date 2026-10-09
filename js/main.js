@@ -5,9 +5,16 @@ const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": 
 const MARK = '<img src="assets/mark.svg" alt="" style="width:100%;height:auto;display:block">';
 const SILHOUETTE = '<svg class="ph" viewBox="0 0 120 130" aria-hidden="true"><circle cx="60" cy="42" r="24" fill="currentColor"/><path d="M8 130c4-34 24-52 52-52s48 18 52 52z" fill="currentColor"/></svg>';
 
-/* navigation: mark the current page in the menu */
+/* navigation */
+// Links are written as /about, /media, etc. so the address bar shows yamanetaiko.org/about.
+// When the files are opened from a computer (or in a preview), point them at the .html files instead.
+if (!/(^|\.)yamanetaiko\.org$/.test(location.hostname) && !/^https?:$/.test(location.protocol) || location.hostname.endsWith("claude.ai") || location.hostname.endsWith("claudeusercontent.com")) {
+  document.querySelectorAll('a[href^="/"]').forEach(a => { const h = a.getAttribute("href"); const [p, hash = ""] = h.split("#"); a.setAttribute("href", (p === "/" ? "index.html" : p.slice(1) + ".html") + (hash ? "#" + hash : "")); });
+}
+// On the live site, tidy the address bar if someone arrives at /about.html
+if (/(^|\.)yamanetaiko\.org$/.test(location.hostname) && /\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(index)?\.html$/, "") + location.search + location.hash);
 { const page = document.body.dataset.page || "home";
-  document.querySelectorAll("#nav a").forEach(a => { if (a.getAttribute("href").replace(/\.html$/, "").replace(/^index$/, "home") === page) a.setAttribute("aria-current", "page"); }); }
+  document.querySelectorAll("#nav a").forEach(a => { const h = a.getAttribute("href").replace(/^\//, "").replace(/\.html$/, ""); if ((h === "" || h === "index" ? "home" : h) === page) a.setAttribute("aria-current", "page"); }); }
 $("#menuBtn").addEventListener("click", () => { const o = $("#nav").classList.toggle("open"); $(".site-head").classList.toggle("menu-open", o); $("#menuBtn").setAttribute("aria-expanded", o); });
 
 /* hero slideshow (home page) */
