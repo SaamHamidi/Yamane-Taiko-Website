@@ -19,7 +19,7 @@ $("#menuBtn").addEventListener("click", () => { const o = $("#nav").classList.to
 
 /* hero slideshow (home page) */
 if ($("#slides")) {
-$("#slides").innerHTML = HERO_IMAGES.map((s, i) => `<div class="slide${i ? "" : " on"}${s.src ? "" : " empty"}${s.fit === "whole" ? " whole" : ""}" aria-hidden="${i ? "true" : "false"}">${s.src ? `<canvas class="bg" width="2" height="64" aria-hidden="true"></canvas><img class="fg"${s.focus ? ` style="object-position:center ${esc(s.focus)}"` : ""} src="${esc(s.src)}" alt="${esc(s.alt)}"${i ? ' loading="lazy"' : ""}>` : `<span class="ph">${MARK}</span><span class="ph-label caps">Photo ${i + 1}</span>`}</div>`).join("");
+$("#slides").innerHTML = HERO_IMAGES.map((s, i) => `<div class="slide${i ? "" : " on"}${s.src ? "" : " empty"}${s.fit === "whole" ? " whole" : ""}" aria-hidden="${i ? "true" : "false"}">${s.src ? `<canvas class="bg" width="2" height="64" aria-hidden="true"></canvas><img class="fg"${s.focus ? ` style="object-position:center ${esc(s.focus)}"` : ""} src="${esc(s.src)}" alt=""${i ? ' loading="lazy"' : ""}>` : `<span class="ph">${MARK}</span><span class="ph-label caps">Photo ${i + 1}</span>`}</div>`).join("");
 $("#dots").innerHTML = HERO_IMAGES.length > 1 ? HERO_IMAGES.map((_, i) => `<button type="button" aria-label="Show photo ${i + 1}" aria-current="${!i}"></button>`).join("") : "";
 { const first = document.querySelector(".slide img.fg"), hero = document.querySelector(".hero");
   // decide from the banner's own size (works even if the home page was hidden when the site loaded)
@@ -66,10 +66,10 @@ document.addEventListener("click", e => {
 if ($("#videos")) $("#videos").innerHTML = VIDEOS.map(videoCard).join("");
 if ($("#homeVideos")) $("#homeVideos").innerHTML = VIDEOS.slice(0, 4).map(videoCard).join("");
 if ($("#photos")) {
-$("#photos").innerHTML = PHOTOS.map((p, i) => `<button type="button" data-i="${i}" aria-label="Open photo: ${esc(p.alt)}"><img src="${esc(p.thumb || p.src)}" alt="${esc(p.alt)}" loading="lazy" onload="if(this.naturalHeight>this.naturalWidth*1.1)this.parentNode.classList.add('tall')"></button>`).join("");
+$("#photos").innerHTML = PHOTOS.map((p, i) => `<button type="button" data-i="${i}" aria-label="Open photo ${i + 1}"><img src="${esc(p.thumb || p.src)}" alt="" loading="lazy" onload="if(this.naturalHeight>this.naturalWidth*1.1)this.parentNode.classList.add('tall')"></button>`).join("");
 /* photo viewer */
 { const lb = $("#lightbox"), img = $("#lbImg"); let at = 0, lastFocus = null;
-  const go = n => { at = (n + PHOTOS.length) % PHOTOS.length; img.src = PHOTOS[at].src; img.alt = PHOTOS[at].alt; $("#lbCount").textContent = `${at + 1} / ${PHOTOS.length}`;
+  const go = n => { at = (n + PHOTOS.length) % PHOTOS.length; img.src = PHOTOS[at].src; img.alt = ""; $("#lbCount").textContent = `${at + 1} / ${PHOTOS.length}`;
     [at + 1, at - 1].forEach(k => { const p = PHOTOS[(k + PHOTOS.length) % PHOTOS.length]; if (p) new Image().src = p.src; }); };
   const open = n => { lastFocus = document.activeElement; lb.hidden = false; requestAnimationFrame(() => lb.classList.add("open")); document.body.style.overflow = "hidden"; go(n); $("#lbClose").focus(); };
   const close = () => { lb.classList.remove("open"); document.body.style.overflow = ""; setTimeout(() => { lb.hidden = true; }, 200); if (lastFocus) lastFocus.focus(); };
