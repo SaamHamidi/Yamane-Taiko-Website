@@ -66,7 +66,10 @@ p{margin:0}
 .menu-btn[aria-expanded="true"] .burger span:nth-child(3){top:6.2px;transform:rotate(-45deg)}
 @media (max-width:760px){
   .menu-btn{display:block}
-  .nav{position:absolute;inset:100% 0 auto 0;flex-direction:column;gap:0;background:rgba(17,16,19,.93);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);padding:8px var(--gutter) 16px;display:flex;visibility:hidden;opacity:0;transform:translateY(-4px);transition:opacity .18s ease,transform .2s ease-out,visibility 0s linear .2s}
+  /* the header's frosted layer grows to cover the open menu, so header + menu are one seamless panel */
+  .site-head::before{transition:bottom .2s ease-out}
+  .site-head.menu-open::before{bottom:calc(-1 * var(--menu-h,0px))}
+  .nav{position:absolute;inset:100% 0 auto 0;flex-direction:column;gap:0;background:none;padding:8px var(--gutter) 16px;display:flex;visibility:hidden;opacity:0;transform:translateY(-4px);transition:opacity .18s ease,transform .2s ease-out,visibility 0s linear .2s}
   .nav.open{visibility:visible;opacity:1;transform:none;transition:opacity .18s ease,transform .2s ease-out,visibility 0s}
   .nav a{opacity:0;transform:translateY(-2px);transition:opacity .18s,transform .18s}
   .nav.open a{opacity:1;transform:none}
