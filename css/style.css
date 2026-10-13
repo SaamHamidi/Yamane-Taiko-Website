@@ -66,13 +66,18 @@ p{margin:0}
 .menu-btn[aria-expanded="true"] .burger span:nth-child(3){top:6.2px;transform:rotate(-45deg)}
 @media (max-width:760px){
   .menu-btn{display:block}
-  /* the header's frosted layer grows to cover the open menu, so header + menu are one seamless panel */
-  .site-head::before{transition:bottom .14s cubic-bezier(.4,0,.2,1)}
-  .site-head.menu-open::before{bottom:calc(-1 * var(--menu-h,0px));transition:bottom .12s cubic-bezier(.2,.9,.3,1)}
   .nav{position:absolute;inset:100% 0 auto 0;flex-direction:column;gap:0;background:none;padding:8px var(--gutter) 16px;display:flex;visibility:hidden;opacity:0;transform:translateY(-4px);transition:opacity .18s ease,transform .2s ease-out,visibility 0s linear .2s}
   .nav.open{visibility:visible;opacity:1;transform:none;transition:opacity .18s ease,transform .2s ease-out,visibility 0s}
   .nav a{opacity:0;transform:translateY(-2px);transition:opacity .18s,transform .18s}
   .nav.open a{opacity:1;transform:none}
+  /* menu panel: same fade/slide as before, now frosted. It reaches up behind the header so one blur layer
+     spans header + menu with no seam; logo and button sit above it */
+  .brand,.menu-btn{position:relative;z-index:2}
+  .nav{--head-h:68px;top:0;padding-top:calc(var(--head-h) + 8px);background:rgba(17,16,19,.93);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2);pointer-events:none}
+  .nav.open a{pointer-events:auto}
+  /* once the panel has faded in it carries the whole frosted area, so the header's own layer steps aside (no doubled tint) */
+  .site-head::before{transition:opacity 0s}
+  .site-head.menu-open::before{opacity:0;transition:opacity 0s linear .2s}
   .nav.open a:nth-child(2){transition-delay:.02s}.nav.open a:nth-child(3){transition-delay:.04s}.nav.open a:nth-child(4){transition-delay:.06s}.nav.open a:nth-child(5){transition-delay:.08s}
   .nav a{padding-block:12px;border-bottom:0}
   .nav a[aria-current="page"]{color:#fff;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px;text-decoration-color:#b45cb4}

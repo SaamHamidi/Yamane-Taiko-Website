@@ -15,7 +15,7 @@ if (!/(^|\.)yamanetaiko\.org$/.test(location.hostname) && !/^https?:$/.test(loca
 if (/(^|\.)yamanetaiko\.org$/.test(location.hostname) && /\.html$/.test(location.pathname)) history.replaceState(null, "", location.pathname.replace(/(index)?\.html$/, "") + location.search + location.hash);
 { const page = document.body.dataset.page || "home";
   document.querySelectorAll("#nav a").forEach(a => { const h = a.getAttribute("href").replace(/^\//, "").replace(/\.html$/, ""); if ((h === "" || h === "index" ? "home" : h) === page) a.setAttribute("aria-current", "page"); }); }
-$("#menuBtn").addEventListener("click", () => { $(".site-head").style.setProperty("--menu-h", $("#nav").offsetHeight + "px"); const o = $("#nav").classList.toggle("open"); $(".site-head").classList.toggle("menu-open", o); $("#menuBtn").setAttribute("aria-expanded", o); });
+$("#menuBtn").addEventListener("click", () => { const o = $("#nav").classList.toggle("open"); $(".site-head").classList.toggle("menu-open", o); $("#menuBtn").setAttribute("aria-expanded", o); });
 
 /* hero slideshow (home page) */
 if ($("#slides")) {
