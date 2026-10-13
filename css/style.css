@@ -36,9 +36,12 @@ p{margin:0}
 :focus-visible{outline:2px solid var(--accent-text);outline-offset:3px}
 
 /* ---------- header ---------- */
-.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;color:#fff;background:var(--black)}
-.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:68px}
-@media (min-width:761px){ .site-head .wrap{min-height:88px} .site-head .brand .logo{width:46px;height:46px} .site-head .brand .wordmark{font-size:1.13rem} }
+.site-head{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;color:#fff;background:none}
+/* translucent frosted header: page shows through faintly as you scroll */
+.site-head::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:rgba(17,16,19,.93);-webkit-backdrop-filter:blur(20px) saturate(1.2);backdrop-filter:blur(20px) saturate(1.2)}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.site-head::before{background:rgba(17,16,19,.94)}}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;min-height:64px}
+@media (min-width:761px){ .site-head .wrap{min-height:82px} .site-head .brand .logo{width:46px;height:46px} .site-head .brand .wordmark{font-size:1.13rem} }
 .brand{color:#fff;display:flex;align-items:center;gap:12px;text-decoration:none}
 .brand .logo{width:40px;height:40px;flex:none;display:block}
 .wordmark .kern-ya{letter-spacing:.00em} /* pulls the A of YAMANE closer to the Y */
@@ -113,10 +116,10 @@ main > section[data-page]{animation:rise .5s ease both}
 .btn.dark{background:var(--plum);color:#fff;border-color:var(--plum)}
 .btn.dark:hover{background:var(--plum-deep);border-color:var(--plum-deep)}
 .btn.plum{background:var(--plum);color:var(--on-plum);border-color:var(--plum)}
-.btn{transition:transform .12s cubic-bezier(.2,.9,.3,1.3),background-color .12s ease-out,border-color .12s ease-out,box-shadow .12s ease-out}
-.btn:hover{transform:translateY(-2px);box-shadow:0 6px 14px -6px rgba(61,0,61,.45)}
-.btn:active{transform:translateY(0) scale(.97);box-shadow:none;transition-duration:.06s}
-@media (prefers-reduced-motion:reduce){.btn,.btn:hover,.btn:active{transform:none;transition:none}}
+.btn{transition:background-color .12s ease-out,border-color .12s ease-out,color .12s ease-out}
+.btn.plum:hover{background:var(--plum-deep);border-color:var(--plum-deep)}
+.btn.solid:hover{background:transparent;color:#fff}
+.btn:not(.dark):not(.plum):not(.solid):hover{background:var(--plum);border-color:var(--plum);color:#fff}
 
 /* ---------- common sections ---------- */
 .block{padding-block:clamp(56px,8vw,104px)}
@@ -124,7 +127,7 @@ main > section[data-page]{animation:rise .5s ease both}
 .sec-head h2{font-family:var(--font-title);font-weight:700;font-size:var(--heading-size);letter-spacing:.015em}
 .link-arrow{color:var(--accent-text);text-decoration:none}
 .link-arrow:hover{text-decoration:underline;text-underline-offset:4px}
-.page-title{padding-block:clamp(56px,8vw,96px) clamp(32px,4vw,48px)}
+.page-title{padding-block:clamp(48px,6vw,80px) clamp(32px,4vw,48px)}
 .page-title + .block{padding-top:0}
 [data-page="media"] .page-title,[data-page="members"] .page-title{padding-bottom:clamp(22px,2.6vw,34px)}
 .page-title h1{font-family:var(--font-title);font-weight:800;font-size:var(--heading-size);letter-spacing:.04em;line-height:1}
@@ -194,7 +197,7 @@ dialog.profile::backdrop{background:color-mix(in srgb,#0c0410 75%,transparent)}
 
 /* media */
 .tabs{display:flex;gap:32px;margin-bottom:36px}
-.tabs.caps button{font-size:1rem;letter-spacing:.14em}
+.tabs.caps button{font-size:1rem;letter-spacing:.08em}
 .tabs button{font:inherit;background:none;border:0;border-bottom:2px solid transparent;color:var(--mute);padding:0 0 12px;cursor:pointer;margin-bottom:-1px}
 .tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--plum)}
 .videos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 32px}
