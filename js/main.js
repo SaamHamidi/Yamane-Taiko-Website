@@ -55,7 +55,7 @@ if ($("#roster")) $("#roster").innerHTML = MEMBERS.map(m => `<figure class="memb
 /* media */
 const ytId = u => (String(u).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/) || [])[1];
 const videoCard = v => { const id = ytId(v.url), th = v.thumb || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "");
-  return `<div class="video"><button class="thumb" type="button" ${id ? `data-yt="${id}"` : `data-href="${esc(v.url)}"`} aria-label="Play ${esc(v.title)}"><span class="wm">${MARK}</span>${th ? `<img src="${esc(th)}" alt="" loading="lazy" onerror="this.remove()">` : ""}<span class="play"><svg width="22" height="22" viewBox="0 0 20 20" aria-hidden="true"><path d="M6.5 3.5L16.5 10L6.5 16.5Z" fill="#fff"/></svg></span></button><h3>${esc(v.title)}</h3><a class="yt" href="${esc(v.url)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`; };
+  return `<div class="video"><button class="thumb" type="button" ${id ? `data-yt="${id}"` : `data-href="${esc(v.url)}"`} aria-label="Play ${esc(v.title)}"><span class="wm">${MARK}</span>${th ? `<img src="${esc(th)}" alt="" loading="lazy" onerror="this.remove()">` : ""}<span class="play"><svg width="46" height="46" viewBox="0 0 20 20" aria-hidden="true"><path d="M6 3.5L16.5 10L6 16.5Z" fill="#fff" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg></span></button><h3>${esc(v.title)}</h3><a class="yt" href="${esc(v.url)}" target="_blank" rel="noopener">Watch on YouTube ↗</a></div>`; };
 // click a thumbnail to play the video right on the page
 document.addEventListener("click", e => {
   const b = e.target.closest(".thumb"); if (!b || b.classList.contains("playing")) return;
